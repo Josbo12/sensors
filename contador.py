@@ -38,3 +38,12 @@ if __name__ == "__main__":
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(FLOW_SENSOR, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
     GPIO.add_event_detect(FLOW_SENSOR, GPIO.RISING, callback=f1.update)
+
+
+    while True:
+    try:
+        time.sleep(1)
+    except KeyboardInterrupt:
+        print '\ncaught keyboard interrupt!, bye'
+        GPIO.cleanup()
+        sys.exit()
