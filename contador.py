@@ -22,7 +22,8 @@ class FlowControl(object):
     def update(self, channel):
         tim = time.time()
         delta = tim - self.previousTime
-        if delta < 500:
+        if delta > 0.5:
+            print "entro al if"
             #self.count = self.count+1
             #self.litres =(self.count/450.0)
             #service = '%.3f' % self.litres
@@ -33,6 +34,7 @@ class FlowControl(object):
             service = self.flow * (delta / 1000.0)
             self.service  += service
             self.total    += service
+            print service
         else:
             self.service = 0
             self.user = self._get_user()
