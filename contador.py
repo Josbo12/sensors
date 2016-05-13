@@ -25,9 +25,8 @@ class FlowControl(object):
         if delta < 0.5:
             self.count = self.count+1
             self.litres =(self.count/450.0)
-            service = '%.3f' % self.litres
-            self.service += service
-            self.total += service
+            self.service += self.litres
+            self.total += self.litres
             print "service =", service
             print "self.service =", self.service
             print "self.total =", self.total
