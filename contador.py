@@ -41,9 +41,9 @@ if __name__ == "__main__":
 
 
     while True:
-    try:
-        time.sleep(1)
-    except KeyboardInterrupt:
-        print '\ncaught keyboard interrupt!, bye'
-        GPIO.cleanup()
-        sys.exit()
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            print '\ncaught keyboard interrupt!, bye'
+            GPIO.cleanup()
+            sys.exit()
