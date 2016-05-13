@@ -22,7 +22,7 @@ class FlowControl(object):
     def update(self, channel):
         tim = time.time()
         delta = tim - self.previousTime
-        if delta > 0.5:
+        if delta < 0.5:
             self.count = self.count+1
             self.litres =(self.count/450.0)
             self.service += self.litres
