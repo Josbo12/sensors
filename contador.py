@@ -13,7 +13,8 @@ class FlowControl(object):
         self.count = 0
         self.litres = 0
         self.litres_decimal = 0
-        
+        self.service = 0
+        self.total = 0
 
     def _get_user(self):
         print "llegeixo nfc"
@@ -21,19 +22,15 @@ class FlowControl(object):
     def update(self, channel):
         tim = time.time()
         delta = tim - self.previousTime
-        if delta > 0.5:
-            print "entro al if"
-            #self.count = self.count+1
-            #self.litres =(self.count/450.0)
-            #service = '%.3f' % self.litres
-            #self.service += service
-            #self.total += service
-            self.hertz = 1000.0 / delta
-            self.flow = self.hertz / 450.0  # Liter/Second
-            service = self.flow * (delta / 1000.0)
-            self.service  += service
-            self.total    += service
-            print self.service
+        if delta < 0.5:
+            self.count = self.count+1
+            self.litres =(self.count/450.0)
+            service = '%.3f' % self.litres
+            self.service += service
+            self.total += service
+            print "service =", service
+            print "self.service =", self.service
+            print "self.total =", self.total
         else:
             self.service = 0
             self.user = self._get_user()
