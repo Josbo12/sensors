@@ -17,8 +17,8 @@ class FlowControl(object):
         self.total = 0
 
     def _get_user(self):
-        print "\n"
-        return "llegeixo nfc"
+        print "llegeixo nfc \n"
+        return True
 
     def update(self, channel):
         tim = time.time()
