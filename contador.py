@@ -17,6 +17,7 @@ class FlowControl(object):
         self.total = 0
 
     def _get_user(self):
+        print "\n"
         return "llegeixo nfc"
 
     def update(self, channel):
