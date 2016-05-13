@@ -34,7 +34,7 @@ class FlowControl(object):
             service = self.flow * (delta / 1000.0)
             self.service  += service
             self.total    += service
-            print service
+            print self.service
         else:
             self.service = 0
             self.user = self._get_user()
