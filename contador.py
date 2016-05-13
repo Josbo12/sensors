@@ -13,7 +13,7 @@ class FlowControl(object):
         self.count = 0
         self.litres = 0
         self.litres_decimal = 0
-    def _get_user():
+    def _get_user(self):
         print "llegeixo nfc"
 
     def update(self, channel):
