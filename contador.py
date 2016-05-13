@@ -10,6 +10,8 @@ class FlowControl(object):
         self.count = 0
         self.litres = 0
         self.litres_decimal = 0
+    def _get_user():
+        
 
     def update(self, channel):
         tim = time.time()
