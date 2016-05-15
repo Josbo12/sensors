@@ -3,11 +3,27 @@
 # -*- coding: utf8 -*-
 import RPi.GPIO as GPIO
 import time, sys
+import RPi.GPIO as GPIO
+import MFRC522
+import signal
 
+
+class NFCReader(object):
+    def __init__(self):
+        self.uid = None
+        MIFAREReader = MFRC522.MFRC522()
+
+    def is_card_present(self):
+        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+        return self.uid
+
+    def read_uid(self):
+        (status,uid) = MIFAREReader.MFRC522_Anticoll()
+        return self.uid
 
 class FlowControl(object):
     """Controling FlowControl"""
-    def __init__(self):
+    def __init__(self, nfc=None):
         super(FlowControl, self).__init__()
         self.previousTime = 0
         self.count = 0
@@ -15,10 +31,13 @@ class FlowControl(object):
         self.litres_decimal = 0
         self.service = 0
         self.total = 0
+        self.nfc = nfc
 
     def _get_user(self):
-        print "llegeixo nfc \n"
-        return True
+        if self.nfc is not None:
+            if self.nfc.is_card_present():
+                return self.nfc.read_uid()
+        return "None"
 
     def update(self, channel):
         tim = time.time()
