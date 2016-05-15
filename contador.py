@@ -34,10 +34,11 @@ class FlowControl(object):
         self.nfc = nfc
 
     def _get_user(self):
-        if self.nfc is not None:
-            if self.nfc.is_card_present():
-                return self.nfc.read_uid()
-        return "None"
+
+            f2=NFCReader()
+            if f2.is_card_present():
+                return f2.read_uid()
+
 
     def update(self, channel):
         tim = time.time()
