@@ -19,13 +19,12 @@ class FlowControl(object):
         self.litres_decimal = 0
         self.service = 0
         self.total = 0
-        self.nfc = nfc
+        self.nfc = NFCReader()
 
     def _get_user(self):
-
-            f2=NFCReader()
-            if f2.is_card_present():
-                return f2.read_uid()
+        uid = self.NFCReader.read()
+        print 'uid recived'
+        return uid
 
 
     def update(self, channel):
