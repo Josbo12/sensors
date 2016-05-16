@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
+import RPi.GPIO as GPIO
+import spi
+import signal
+import time
+import MFRC522
+
+class NFCReader(object):
+    def __init__(self):
+        self.uid = None
+        MIFAREReader = MFRC522.MFRC522()
+
+    def is_card_present(self):
+        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+        return self.uid
+
+    def read_uid(self):
+        (status,uid) = MIFAREReader.MFRC522_Anticoll()
+        return self.uid
