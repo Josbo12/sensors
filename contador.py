@@ -3,8 +3,6 @@
 # -*- coding: utf8 -*-
 import RPi.GPIO as GPIO
 import time, sys
-import RPi.GPIO as GPIO
-import MFRC522
 import signal
 from NFCReader import NFCReader
 
