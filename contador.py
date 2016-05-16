@@ -6,7 +6,7 @@ import time, sys
 import RPi.GPIO as GPIO
 import MFRC522
 import signal
-from NFCReader import NFCReader
+from NFCReader import read_nfc
 
 
 class FlowControl(object):
