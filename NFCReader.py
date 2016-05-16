@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
+
 
 import RPi.GPIO as GPIO
 import spi
@@ -8,6 +8,7 @@ import time
 import MFRC522
 
 class NFCReader(object):
+
     def __init__(self):
         self.uid = None
         MIFAREReader = MFRC522.MFRC522()
