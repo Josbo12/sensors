@@ -8,18 +8,6 @@ import MFRC522
 import signal
 
 
-class NFCReader(object):
-    def __init__(self):
-        self.uid = None
-        MIFAREReader = MFRC522.MFRC522()
-
-    def is_card_present(self):
-        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-        return self.uid
-
-    def read_uid(self):
-        (status,uid) = MIFAREReader.MFRC522_Anticoll()
-        return self.uid
 
 class FlowControl(object):
     """Controling FlowControl"""
