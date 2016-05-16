@@ -7,7 +7,7 @@ import signal
 import time
 import MFRC522
 
-class read_nfc(object):
+class NFCReader(object):
 
     MIFAREReader = MFRC522.MFRC522()
 
