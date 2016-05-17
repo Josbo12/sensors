@@ -45,8 +45,8 @@ class FlowControl(object):
 if __name__ == "__main__":
     f1= FlowControl()
 
-    FLOW_SENSOR = 23
-    GPIO.setmode(GPIO.BCM)
+    FLOW_SENSOR = 16
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(FLOW_SENSOR, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
     GPIO.add_event_detect(FLOW_SENSOR, GPIO.RISING, callback=f1.update)
 
