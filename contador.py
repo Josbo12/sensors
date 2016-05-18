@@ -1,6 +1,15 @@
-
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+"""
+NFCBeer
+Usage:
+ nfcbeer.py client <id>
+ nfcbeer.py server
+ nfcbeer.py [-h | --help]
+Options:
+ -h --help      Shows help
+"""
+from docopt import docopt
 import RPi.GPIO as GPIO
 import time, sys
 import signal
@@ -9,7 +18,7 @@ from NFCReader import NFCReader
 
 class FlowControl(object):
     """Controling FlowControl"""
-    def __init__(self, nfc=None):
+    def __init__(self, nfc=None, server=None):
         super(FlowControl, self).__init__()
         self.previousTime = 0
         self.count = 0
@@ -18,11 +27,14 @@ class FlowControl(object):
         self.service = 0
         self.total = 0
         self.nfc = NFCReader()
+        self.server = server
 
     def _get_user(self):
-        uid = self.NFCReader.read()
-        print 'uid recived'
-        return uid
+
+        if self.nfc.is_card_present():
+            self.nfc.read_uid()
+        return True
+
 
 
     def update(self, channel):
@@ -39,22 +51,62 @@ class FlowControl(object):
         else:
             self.service = 0
             self.user = self._get_user()
+            self.server.update_score("1", self.user, self.service)
 
         self.previousTime = tim
 
+
+
+class BeerServer(object):
+    """Server"""
+    def __init__(self):
+        super(BeerServer, self).__init__()
+        self.scores = {}
+
+    def update_score(self, kegnum, user, beer):
+        self.scores[user] = self.scores.get(user, 0.0) + float(beer) #SI no hi ha users, tornam 0
+        pass
+
+    def print_leaderboard(self):
+        print "*"*40
+        for s in self.scores:
+            print s, "has drunk", self.scores[s], "L"
+        print "*"*40
+
+    def run_loop(self):
+        pass
+        def run_loop(self):
+            while True:
+                r = receive()
+                self.update_score
+
+class BeerControl(object):
+    """COntrol KEG"""
+    def __init__(self):
+        super(BeerControl, self).__init__()
+        self.server = BeerServer()
+    def run(self):
+
+        f1= FlowControl(self, self.server)
+
+        FLOW_SENSOR = 16
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(FLOW_SENSOR, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+        GPIO.add_event_detect(FLOW_SENSOR, GPIO.RISING, callback=f1.update)
+
+
+        while True:
+            try:
+                time.sleep(1)
+            except KeyboardInterrupt:
+                print '\ncaught keyboard interrupt!, bye'
+                GPIO.cleanup()
+                sys.exit()
+
+
 if __name__ == "__main__":
-    f1= FlowControl()
 
-    FLOW_SENSOR = 16
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(FLOW_SENSOR, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-    GPIO.add_event_detect(FLOW_SENSOR, GPIO.RISING, callback=f1.update)
-
-
-    while True:
-        try:
-            time.sleep(1)
-        except KeyboardInterrupt:
-            print '\ncaught keyboard interrupt!, bye'
-            GPIO.cleanup()
-            sys.exit()
+    arguments = docopt(doc=__doc__, version="NFCBEER 1.0")
+    print arguments
+    c = BeerControl()
+    c.run()

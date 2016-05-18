@@ -9,16 +9,19 @@ import MFRC522
 
 class NFCReader(object):
 
+    MIFAREReader = MFRC522.MFRC522()
     def __init__(self):
         self.uid = None
-        MIFAREReader = MFRC522.MFRC522()
+
 
     def is_card_present(self):
-        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+
+        (status,TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
         print "TagType", TagType
-        return self.uid
+        return True
 
     def read_uid(self):
-        (status,uid) = MIFAREReader.MFRC522_Anticoll()
+
+        (status,uid) = self.MIFAREReader.MFRC522_Anticoll()
         print "uid", uid
         return self.uid
